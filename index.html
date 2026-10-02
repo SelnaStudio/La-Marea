@@ -138,8 +138,8 @@
 
   /* ---------- SCROLL PROGRESS ---------- */
   .scroll-progress{
-    position:fixed; top:0; left:0; height:3px; background:var(--coral);
-    z-index:200; width:0%;
+    position:fixed; top:0; left:0; width:100%; height:3px; background:var(--coral);
+    z-index:200; transform:scaleX(0); transform-origin:0 0; will-change:transform;
   }
 
   /* ---------- NAV ---------- */
@@ -533,14 +533,24 @@
   // Loop continuo por rAF en vez de depender del evento "scroll": durante un
   // scroll rápido o con inercia (sobre todo en móvil) el evento no dispara en
   // cada frame y la barra salta — leer la posición cada frame la mantiene fluida.
-  let lastWidth = -1;
-  function updateProgress(){
+  // scaleX() en vez de width: lo mueve el compositor (GPU) sin recalcular
+  // layout en cada frame, que es lo que seguía notándose a velocidad muy alta.
+  let maxScroll = 0;
+  function recalcMaxScroll(){
     const doc = document.documentElement;
-    const max = doc.scrollHeight - doc.clientHeight;
-    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-    if(pct !== lastWidth){
-      progress.style.width = pct + '%';
-      lastWidth = pct;
+    maxScroll = doc.scrollHeight - doc.clientHeight;
+  }
+  recalcMaxScroll();
+  window.addEventListener('resize', recalcMaxScroll, { passive:true });
+  window.addEventListener('load', recalcMaxScroll);
+  setTimeout(recalcMaxScroll, 400);
+
+  let lastScale = -1;
+  function updateProgress(){
+    const scale = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+    if(scale !== lastScale){
+      progress.style.transform = `scaleX(${scale})`;
+      lastScale = scale;
     }
     requestAnimationFrame(updateProgress);
   }
