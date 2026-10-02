@@ -145,7 +145,7 @@
   /* ---------- NAV ---------- */
   header{
     position:sticky; top:0; z-index:100;
-    background:rgba(238,243,239,0.85); backdrop-filter:blur(12px);
+    background:rgba(250,245,240,0.88); backdrop-filter:blur(12px);
     border-bottom:1px solid rgba(122,43,39,0.1);
     transition:box-shadow .3s var(--ease);
   }
@@ -251,11 +251,14 @@
   }
   .photo-plate{ padding:0; overflow:hidden; }
   .photo-tag{
-    position:absolute; bottom:-14px; left:50%; transform:translateX(-50%);
-    background:var(--blanco); padding:8px 16px; border-radius:999px; font-size:0.78rem; font-weight:600;
-    box-shadow:var(--shadow-sm); white-space:nowrap; display:flex; align-items:center; gap:5px;
+    position:absolute; bottom:-20px; left:50%; transform:translateX(-50%);
+    background:var(--blanco); padding:12px 22px; border-radius:18px;
+    box-shadow:var(--shadow-sm); white-space:nowrap;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
   }
-  .photo-tag .star{ color:var(--coral); }
+  .photo-tag-rating{ font-family:'Newsreader',serif; font-weight:600; font-style:italic; font-size:1.3rem; color:var(--tinta); }
+  .photo-tag-rating .star{ color:var(--coral); }
+  .photo-tag-sub{ font-size:0.68rem; font-weight:600; letter-spacing:0.6px; text-transform:uppercase; color:var(--tinta-suave); }
 
   /* ---------- GALLERY ---------- */
   .gallery-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
@@ -320,8 +323,8 @@
   /* ---------- FOOTER ---------- */
   footer{ background:var(--marea-3); color:var(--espuma); padding:44px 0; text-align:center; }
   footer .display{ font-size:1.25rem; font-style:italic; }
-  footer p{ font-size:0.8rem; color:#8FB8B0; margin-top:8px; }
-  footer a{ color:#BFE0DA; font-weight:600; }
+  footer p{ font-size:0.8rem; color:#D8A878; margin-top:8px; }
+  footer a{ color:#D97748; font-weight:600; }
   footer a:hover{ color:var(--espuma); }
 
   /* ---------- WHATSAPP FLOAT ---------- */
@@ -398,7 +401,10 @@
       <div class="plate photo-plate" id="heroPlate">
         <img src="assets/hero-photo.webp" alt="Roll de camarón y aguacate servido en La Marea, Lomas de Angelópolis" width="900" height="1145" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
       </div>
-      <span class="photo-tag"><span class="star">★</span> 4.2 en Google · 46 reseñas</span>
+      <span class="photo-tag">
+        <span class="photo-tag-rating">4.2 <span class="star">★</span></span>
+        <span class="photo-tag-sub">en Google</span>
+      </span>
     </div>
   </div>
 </section>
@@ -423,7 +429,7 @@
       <div class="gallery-card reveal"><div class="imgwrap"><img src="assets/gallery-salmon.webp" alt="Salmón zarandeado servido en La Marea" width="760" height="567" loading="lazy" decoding="async"></div><div class="gallery-caption">Salmón zarandeado<span>Sabor a la parrilla, receta sinaloense</span></div></div>
       <div class="gallery-card reveal"><div class="imgwrap"><img src="assets/gallery-pulpo.webp" alt="Pulpo zarandeado servido en La Marea" width="760" height="567" loading="lazy" decoding="async"></div><div class="gallery-caption">Pulpo zarandeado<span>Textura perfecta, sazón intensa</span></div></div>
       <div class="gallery-card reveal"><div class="imgwrap"><img src="assets/gallery-taco-camaron.webp" alt="Taco enchilado de camarón servido en La Marea" width="760" height="496" loading="lazy" decoding="async"></div><div class="gallery-caption">Taco enchilado de camarón<span>Autenticidad en cada bocado</span></div></div>
-      <div class="gallery-card reveal"><div class="imgwrap"><img src="assets/gallery-marea-roll.webp" alt="Marea Roll servido en La Marea" width="760" height="490" loading="lazy" decoding="async"></div><div class="gallery-caption">Marea Roll<span>Creatividad y frescura en cada rollo</span></div></div>
+      <div class="gallery-card reveal"><div class="imgwrap"><img src="assets/gallery-marea-roll.webp" alt="Marea Roll servido en La Marea" width="760" height="980" loading="lazy" decoding="async"></div><div class="gallery-caption">Marea Roll<span>Creatividad y frescura en cada rollo</span></div></div>
       <div class="gallery-card reveal"><div class="imgwrap"><img src="assets/gallery-supertaco.webp" alt="Supertaco servido en La Marea" width="760" height="303" loading="lazy" decoding="async"></div><div class="gallery-caption">Supertaco<span>Para los que aman lo grande y con sabor</span></div></div>
     </div>
   </div>
@@ -446,7 +452,7 @@
       <div class="stat"><div class="display italic">Sinaloa</div><span>estilo e inspiración</span></div>
       <div class="stat"><div class="display italic">100%</div><span>mariscos frescos del día</span></div>
       <div class="stat"><div class="display italic">Fusión</div><span>mar y sushi en un mismo plato</span></div>
-      <div class="stat"><div class="display italic"><span data-count="4.2" data-decimal="1">0</span>★</div><span>en Google · 46 reseñas</span></div>
+      <div class="stat"><div class="display italic"><span data-count="4.2" data-decimal="1">0</span>★</div><span>en Google</span></div>
     </div>
   </div>
 </section>
@@ -484,7 +490,7 @@
     <div class="section-head reveal">
       <span class="eyebrow" style="justify-content:center;">los esperamos</span>
       <h2>¿Listos para probar el Pacífico?</h2>
-      <p>Reserva tu mesa o pregunta por el menú — directo a WhatsApp, sin formularios.</p>
+      <p>Reserva tu mesa o pregunta por el menú — directo a WhatsApp.</p>
     </div>
     <div class="hero-ctas reveal">
       <a class="btn" href="https://wa.me/522227348617?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20La%20Marea" target="_blank" rel="noopener">Reserva</a>
