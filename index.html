@@ -601,20 +601,32 @@
   });
 
   if(!reduceMotion){
+    // Mismo arreglo que la barra de progreso: nada de "scroll" + getBoundingClientRect
+    // por frame (fuerza layout). Se cachea la posición del plato en el documento y
+    // cada frame solo se hace aritmética con window.scrollY (no toca layout).
     const plate = document.getElementById('heroPlate');
-    let plateTicking = false;
-    function updateParallax(){
+    let plateCenterY = 0;
+    function recalcPlateCenter(){
       const rect = plate.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const center = rect.top + rect.height/2 - vh/2;
-      const offset = Math.max(-24, Math.min(24, center * -0.06));
-      plate.style.transform = `translateY(${offset}px)`;
-      plateTicking = false;
+      plateCenterY = rect.top + window.scrollY + rect.height/2;
     }
-    window.addEventListener('scroll', ()=>{
-      if(!plateTicking){ requestAnimationFrame(updateParallax); plateTicking = true; }
-    }, { passive:true });
-    updateParallax();
+    recalcPlateCenter();
+    window.addEventListener('resize', recalcPlateCenter, { passive:true });
+    window.addEventListener('load', recalcPlateCenter);
+    setTimeout(recalcPlateCenter, 400);
+
+    let lastOffset = null;
+    function updateParallax(){
+      const vh = window.innerHeight;
+      const center = (plateCenterY - window.scrollY) - vh/2;
+      const offset = Math.max(-24, Math.min(24, center * -0.06));
+      if(offset !== lastOffset){
+        plate.style.transform = `translateY(${offset}px)`;
+        lastOffset = offset;
+      }
+      requestAnimationFrame(updateParallax);
+    }
+    requestAnimationFrame(updateParallax);
   }
 </script>
 
